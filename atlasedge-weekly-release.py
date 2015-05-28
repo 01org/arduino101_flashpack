@@ -106,9 +106,16 @@ def modify_manifest_and_tag(repo_path, tag, execute, verbose):
     replace("%s/atlasedge.xml"%repo_path, REVISION_PATTERN, 'revision="refs/tags/%s"'%tag)
     replace(  "%s/default.xml"%repo_path, REVISION_PATTERN, 'revision="refs/tags/%s"'%tag)
     
+    # Make a new branch where a tag can live
+    BRANCH_NAME = "dev/%s" % tag.lower()
+    subprocess.check_call('git checkout -b %s' % BRANCH_NAME, cwd=repo_path, shell=True)
+    
     # Make a new commit and put a tag on it
     subprocess.check_call('git commit -sam "Weekly release %s"' % tag, cwd=repo_path, shell=True)
     subprocess.check_call('git tag %s' % tag, cwd=repo_path, shell=True)
+    
+    # Push the branch so that the tag can be properly pushed
+    subprocess.check_call('git push ach %s' % BRANCH_NAME, cwd=repo_path, shell=True)
 
 
 
