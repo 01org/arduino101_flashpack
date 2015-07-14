@@ -55,7 +55,7 @@ def main():
     tag_all_except_manifest(repo_paths, args.tag, args.execute, args.verbose)
 
     MANIFEST_REPO_DIR = "manifest"
-    modify_manifest_and_tag(MANIFEST_REPO_DIR, args.tag, args.execute, args.verbose)
+    modify_manifest_then_tag_and_push(MANIFEST_REPO_DIR, args.tag, args.execute, args.verbose)
 
     push_tags(repo_paths, args.tag, args.execute, args.verbose)
     
@@ -72,21 +72,29 @@ def tag_all_except_manifest(repo_paths, tag, execute, verbose):
     :param execute:     Confirmation flag to actually perform the task
     :param verbose:     Verbose mode. Not yet implemented.
     """
-    print "Tagging the repo heads as: %s" % (tag)
-    if not execute:
-        print "Not actually tagging since -e option wasn't used.\n"
-        return
+    print "\nTagging the repo heads as: %s" % (tag)
 
     for repo_path in repo_paths:
         # Skip the manifest since it has a different tagging structure
         if repo_path == "manifest":
             continue
+
         # For non-manifest repo, put a tag on it
-        subprocess.check_call("git tag %s"%(tag), cwd=repo_path, shell=True)
+        if execute:
+            try:
+                subprocess.check_call("git tag %s"%(tag), cwd=repo_path, shell=True)
+                print "[Success] %s" % (repo_path)
+            except:
+                # Failure is ignored for now in order to further diagnose the failure patterns
+                print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+                print "[FAILURE] %s" % (repo_path)
+                print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+        else:
+            print "[Dry-run] %s" % (repo_path)
 
 
 
-def modify_manifest_and_tag(repo_path, tag, execute, verbose):
+def modify_manifest_then_tag_and_push(repo_path, tag, execute, verbose):
     """
     Modify the manifest files to point to the current tag. Then, apply the tag onto the new manifest.
 
@@ -95,23 +103,24 @@ def modify_manifest_and_tag(repo_path, tag, execute, verbose):
     :param execute:     Confirmation flag to actually perform the task
     :param verbose:     Verbose mode. Not yet implemented.
     """
-    print "Modifying the manifest to point to the tag"
+    print "\nModifying the manifest to point to the tag"
     if not execute:
-        print "Not actually modifying since -e option wasn't used.\n"
+        print "[Dry-run] %s" % repo_path
         return
 
     # Modify the manifest file to point to the current tag.
     # Replace |revision="master"|revision="refs/tags/TAG"|
     REVISION_PATTERN = 'revision="[a-zA-Z0-9_-]+"'
-    replace("%s/atlasedge.xml"%repo_path, REVISION_PATTERN, 'revision="refs/tags/%s"'%tag)
-    replace(  "%s/default.xml"%repo_path, REVISION_PATTERN, 'revision="refs/tags/%s"'%tag)
+    replace(        "%s/atlasedge.xml"%repo_path, REVISION_PATTERN, 'revision="refs/tags/%s"'%tag)
+    replace(          "%s/default.xml"%repo_path, REVISION_PATTERN, 'revision="refs/tags/%s"'%tag)
+    replace("%s/include/atlaspeak.xml"%repo_path, REVISION_PATTERN, 'revision="refs/tags/%s"'%tag)
     
     # Make a new branch where a tag can live
     BRANCH_NAME = "dev/%s" % tag.lower()
     subprocess.check_call('git checkout -b %s' % BRANCH_NAME, cwd=repo_path, shell=True)
     
     # Make a new commit and put a tag on it
-    subprocess.check_call('git commit -sam "Weekly release %s"' % tag, cwd=repo_path, shell=True)
+    subprocess.check_call('git commit -sam "Release %s"' % tag, cwd=repo_path, shell=True)
     subprocess.check_call('git tag %s' % tag, cwd=repo_path, shell=True)
     
     # Push the branch so that the tag can be properly pushed
@@ -128,17 +137,24 @@ def push_tags(repo_paths, tag, execute, verbose):
     :param execute:     Confirmation flag to actually perform the task
     :param verbose:     Verbose mode. Not yet implemented.
     """
-    print "Pushing the tags"
-    if not execute:
-        print "Not actually pushing since -e option wasn't used.\n"
-        return
+    print "\nPushing the tags"
 
     for repo_path in repo_paths:
         remote = "github" if repo_path.endswith("atlaspeak_atlasedge") else "ach"
         reference = tag if repo_path.endswith("atlaspeak_atlasedge") else "refs/tags/%s"%(tag)
 
         # Push all the tags
-        subprocess.check_call("git push %s %s"%(remote, reference), cwd=repo_path, shell=True)
+        if execute:
+            try:
+                subprocess.check_call("git push %s %s"%(remote, reference), cwd=repo_path, shell=True)
+                print "[Success] %s" % (repo_path)
+            except:
+                # Failure is ignored for now in order to further diagnose the failure patterns
+                print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+                print "[FAILURE] %s" % (repo_path)
+                print "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+        else:
+            print "[Dry-run] %s" % (repo_path)
 
 
 
@@ -151,9 +167,9 @@ def gather_artifacts(aedir, tag, execute, verbose):
     :param execute:     Confirmation flag to actually perform the task
     :param verbose:     Verbose mode. Not yet implemented.
     """
-    print "Gathering the artifacts"
+    print "\nGathering the artifacts"
     if not execute:
-        print "Not actually gathering since -e option wasn't used.\n"
+        print "[Dry-run] Not actually gathering since -e option wasn't used."
         return
     
     shutil.copytree("../%s/out/current/firmware" % aedir, "../artifacts/%s" % tag)
