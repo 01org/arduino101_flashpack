@@ -45,7 +45,6 @@ def setsystem(tcfile, host, dirname):
 data = json.load(open(jsonfile))
 # list corlib file
 fname = os.path.join(root, corelibsdir, corelib)
-print fname
 fsize = os.path.getsize(fname)
 sha256 = 'SHA-256:' + hashfile(open(fname, 'rb'), hashlib.sha256())
 url = '/'.join([urlroot, corelibsdir, corelib])
@@ -58,7 +57,6 @@ data['packages'][0]['platforms'][0]['checksum'] = sha256
 tools = data['packages'][0]['tools']
 systems = []
 index = [i for (i, d) in enumerate(tools) if d["name"] == "arc-elf32"][0]
-print index
 for arch, tcfile in dict.iteritems(toolchains):
     host = archs[arch]
     print tcfile, host, toolchaindir
@@ -68,12 +66,11 @@ data['packages'][0]['tools'][index]['systems'] = systems
 # list sketchuploader files
 systems = []
 index = [i for (i, d) in enumerate(tools) if d["name"] == "sketchUploader"][0]
-print index
 for arch, toolfile in dict.iteritems(toolfiles):
     host = archs[arch]
     systems.append(setsystem(toolfile, host, tooldir))
 data['packages'][0]['tools'][index]['systems'] = systems
 
-print json.dumps(data, indent=4, separators=(',', ': '))
+#print json.dumps(data, indent=4, separators=(',', ': '))
 with open('package.json', 'w') as outfile:
     json.dump(data, outfile, indent=4, separators=(',', ': '))
