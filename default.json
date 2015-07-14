@@ -1,0 +1,109 @@
+{
+  "packages": [
+    {
+      "name": "Intel-Test", 
+      "maintainer": "Intel", 
+      "email": "support@intel.com", 
+      "websiteURL": "http://www.intel.com/",
+      "platforms": [
+        {
+          "architecture": "arc32", 
+          "archiveFileName": "", 
+          "boards": [
+            {
+              "name": "EDU"
+            }
+          ], 
+          "category": "Arduino Certified", 
+          "checksum": "", 
+          "name": "Intel Curie Boards", 
+          "size": "", 
+          "toolsDependencies": [
+            {
+              "name": "arc-elf32", 
+              "packager": "Intel-Test", 
+              "version": "1.6.4+1.0"
+            }, 
+            {
+              "name": "sketchUploader", 
+              "packager": "Intel-Test", 
+              "version": "1.6.4+1.0"
+            }
+          ], 
+          "url": "", 
+          "version": "1.6.4+1.0"
+        }
+      ], 
+      "tools": [
+        {
+          "name": "arc-elf32", 
+          "systems": [
+            {
+              "archiveFileName": "linux64.tar.bz2", 
+              "checksum": "", 
+              "host": "x86_64-linux-gnu", 
+              "size": "", 
+              "url": ""
+            }, 
+            {
+              "archiveFileName": "linux32.tar.bz2", 
+              "checksum": "", 
+              "host": "i686-linux-gnu", 
+              "size": "", 
+              "url": ""
+            }, 
+            {
+              "archiveFileName": "osx.tar.bz2", 
+              "checksum": "", 
+              "host": "i386-apple-darwin11", 
+              "size": "", 
+              "url": ""
+            }, 
+            {
+              "archiveFileName": "windows.zip", 
+              "checksum": "", 
+              "host": "i686-mingw32", 
+              "size": "", 
+              "url": ""
+            }
+          ], 
+          "version": "1.6.4+1.0"
+        }, 
+        {
+          "name": "sketchUploader", 
+          "systems": [
+            {
+              "archiveFileName": "", 
+              "checksum": "", 
+              "host": "i386-apple-darwin11", 
+              "size": "", 
+              "url": ""
+            }, 
+            {
+              "archiveFileName": "intel-arduino-tools-atlasedge-windows.zip", 
+              "checksum": "", 
+              "host": "i686-mingw32", 
+              "size": "", 
+              "url": ""
+            }, 
+            {
+              "archiveFileName": "intel-arduino-tools-atlasedge-linux64.tar.bz2", 
+              "checksum": "", 
+              "host": "x86_64-linux-gnu", 
+              "size": "", 
+              "url": ""
+            }, 
+            {
+              "archiveFileName": "intel-arduino-tools-atlasedge-linux32.tar.bz2", 
+              "checksum": "", 
+              "host": "i686-linux-gnu", 
+              "size": "", 
+              "url": ""
+            }
+          ], 
+          "version": "1.6.4+1.0"
+        }
+      ]
+    }
+  ]
+}
