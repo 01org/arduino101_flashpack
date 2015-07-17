@@ -140,8 +140,8 @@ def push_tags(repo_paths, tag, execute, verbose):
     print "\nPushing the tags"
 
     for repo_path in repo_paths:
-        remote = "github" if repo_path.endswith("atlaspeak_atlasedge") else "ach"
-        reference = tag if repo_path.endswith("atlaspeak_atlasedge") else "refs/tags/%s"%(tag)
+        remote = "ach"
+        reference = "refs/tags/%s" % (tag)
 
         # Push all the tags
         if execute:
