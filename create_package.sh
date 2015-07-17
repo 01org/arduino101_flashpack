@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -ex
 share_dir="/mnt/p-sys_maker"
 dir="${share_dir}/release"
 rdir="${share_dir}/public"
