@@ -18,6 +18,7 @@ echo $tag
 flasher=../flash-${tag}.zip
 
 # copy artifacts into flasher package
+mkdir atlasedge_flasher/images/
 cp -r $fwdir atlasedge_flasher/images/
 # create flasher package
 zip -r $flasher atlasedge_flasher/
