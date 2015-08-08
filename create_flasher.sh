@@ -17,9 +17,10 @@ tag=$(echo $2 |sed -e "s/\//-/g" -)
 echo $tag
 flasher=../flash-${tag}.zip
 
-# copy artifacts into flasher package
+# copy .bin and partition.conf files into flasher package
 mkdir atlasedge_flasher/images/
-cp -r $fwdir atlasedge_flasher/images/
+rsync -avm --include='*.bin' --include='*partition.conf' -f 'hide,! */' $fwdir/ atlasedge_flasher/images/firmware/
+
 # create flasher package
 zip -r $flasher atlasedge_flasher/
 
