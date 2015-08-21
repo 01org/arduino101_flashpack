@@ -22,5 +22,6 @@ mkdir atlasedge_flasher/images/
 rsync -avm --include='*.bin' --include='*partition.conf' -f 'hide,! */' $fwdir/ atlasedge_flasher/images/firmware/
 
 # create flasher package
-zip -r $flasher atlasedge_flasher/
+mv atlasedge_flasher atlasedge_flasher_${tag}
+zip -r $flasher atlasedge_flasher_${tag}/
 
