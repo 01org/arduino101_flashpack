@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh
 #
 # Script to flash AtlasEdge firmware via USB and dfu-util
 #
