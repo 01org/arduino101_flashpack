@@ -12,7 +12,7 @@ def read_excel(path):
     """
     Open and read an Excel file
     """
-    sheets = ["corelibs", "arduino-tools"]
+    sheets = ["corelibs", "arduino-tools", "toolchains"]
     bom = []
     book = xlrd.open_workbook(path)
  
