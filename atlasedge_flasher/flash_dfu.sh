@@ -2,23 +2,29 @@
 #
 # Script to flash AtlasEdge firmware via USB and dfu-util
 #
-DFU="sudo bin/dfu-util -d8087:0ABA"
+PID="8087:0ABA"
 IMG="images/firmware"
+os="$(uname)"
+
+DFU="sudo bin/dfu-util"
+if [ x"$os" = x"Darwin" ]; then
+  DFU="bin_osx/dfu-util"
+fi
 
 flash() {
-  $DFU -a 3 -D $IMG/bootloader_lakemont.bin
-  $DFU -a 5 -R -D $IMG/bootupdater.bin
+  $DFU -d$PID -a 3 -D $IMG/bootloader_lakemont.bin
+  $DFU -d$PID -a 5 -R -D $IMG/bootupdater.bin
   echo "*** Sleeping for 12 seconds..."
   sleep 12
-  $DFU -a 2 -D $IMG/lakemont.bin
-  $DFU -a 7 -D $IMG/arc.bin
-  $DFU -a 8 -R -D $IMG/ble_core/image.bin
+  $DFU -d$PID -a 2 -D $IMG/lakemont.bin
+  $DFU -d$PID -a 7 -D $IMG/arc.bin
+  $DFU -d$PID -a 8 -R -D $IMG/ble_core/image.bin
 }
 
 wait() {
   x=''
   while [ -z $x ]; do
-    x=$(sudo bin/dfu-util -l |grep sensor)
+    x=$($DFU -l |grep sensor)
     #sleep 1
   done
 }
