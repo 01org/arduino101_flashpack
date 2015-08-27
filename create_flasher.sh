@@ -16,6 +16,7 @@ fi
 tag=$(echo $2 |sed -e "s/\//-/g" -)
 echo $tag
 flasher=../flash-${tag}.zip
+symlink=../flashpack.zip
 
 # copy .bin and partition.conf files into flasher package
 mkdir atlasedge_flasher/images/
@@ -24,4 +25,4 @@ rsync -avm --include='*.bin' --include='*partition.conf' -f 'hide,! */' $fwdir/ 
 # create flasher package
 mv atlasedge_flasher atlasedge_flasher_${tag}
 zip -r $flasher atlasedge_flasher_${tag}/
-
+ln -s $(basename $flasher) $symlink
