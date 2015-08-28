@@ -8,6 +8,7 @@ DFU='bin/dfu-util'
 os=$(uname)
 if [ "$os" = "Darwin" ]; then
   DFU='bin_osx/dfu-util'
+  readbin='bin_osx/readbin'
 fi
 
 ARGS=$*
