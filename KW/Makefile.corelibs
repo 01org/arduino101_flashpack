@@ -1,0 +1,50 @@
+CPP=~/arc32/bin/arc-elf32-g++
+CC=~/arc32/bin/arc-elf32-gcc
+
+#CPPSRCS = $(wildcard *.cpp)
+#CSRCS = $(wildcard *.c)
+CPPSRCS = $(shell find cores/arduino -name *.cpp)
+CSRCS = $(shell find cores/arduino -name *.c)
+CPPOBJS = $(CPPSRCS:.cpp=.o)
+COBJS = $(CSRCS:.c=.o)
+INCL = -I system/libarc32_edu/common \
+	 -I variants/intel_edu_x \
+	 -I system/libarc32_edu/drivers \
+	 -I system/libarc32_edu/bootcode \
+	 -I system/libarc32_edu/framework/include \
+	 -I cores/arduino
+CFLAGS = $(INCL) \
+	 -D CONFIG_SOC_GPIO_32=1 
+
+CPPFLAGS = $(CFLAGS) \
+	 -fpermissive
+
+CHECK = splint
+
+all: main libarc32_edu
+
+libarc32_edu:
+	cd system/libarc32_edu/; make; cd -
+
+main: $(CPPOBJS) $(COBJS)
+	@echo $(CPPOBJS)
+	@echo $(COBJS)
+	@echo Done.
+#$(CC) $(LD_FLAGS) -o $@ $^
+
+%.o: %.cpp
+	@echo "------"
+	$(CPP) $(CPPFLAGS) -c -o $@ $<
+
+%.o: %.c
+	@echo "------"
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+check: $(CPPSRCS)
+	@echo "------"
+	$(CHECK) $(INCL) $<
+
+clean:
+#rm -f $(CPPOBJS) $(COBJS)
+	find -name "*.o" |xargs -i rm {}
+	make -C system/libarc32_edu/ clean
