@@ -4,12 +4,10 @@
 #
 file='/tmp/dfuver.txt'
 readbin='bin/readbin'
-sudo='sudo'
-DFU='sudo bin/dfu-util'
+DFU='bin/dfu-util'
 os=$(uname)
 if [ "$os" = "Darwin" ]; then
   DFU='bin_osx/dfu-util'
-  sudo=''
 fi
 
 ARGS=$*
@@ -29,7 +27,7 @@ done
 for i in $ARGS;
 do
   if [ -f $file ]; then
-    $sudo rm $file
+    rm $file
   fi
   $DFU -d8087:0ABA -a $i -t 1 -U $file >/dev/null
   $readbin $file

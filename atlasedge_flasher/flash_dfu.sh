@@ -6,7 +6,7 @@ PID="8087:0ABA"
 IMG="images/firmware"
 os="$(uname)"
 
-DFU="sudo bin/dfu-util"
+DFU="bin/dfu-util"
 if [ x"$os" = x"Darwin" ]; then
   DFU="bin_osx/dfu-util"
 fi

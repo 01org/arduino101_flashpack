@@ -1,0 +1,2 @@
+# Intel EDU in DFU Mode
+SUBSYSTEMS=="usb", ATTRS{idProduct}=="0a??", ATTRS{idVendor}=="8087", MODE="666"
