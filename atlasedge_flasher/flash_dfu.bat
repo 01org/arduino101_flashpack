@@ -25,6 +25,7 @@ if %ERRORLEVEL% NEQ 0 (
 )
 echo.
 echo ---SUCCESS---
+pause
 exit /b 0
 
 :flash

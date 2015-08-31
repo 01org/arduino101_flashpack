@@ -4,7 +4,7 @@ set DFU=bin\dfu-util.exe
 set file=%TMP%\dfuver.txt
 
 set ARGS=%*
-if "%1" == "" set ARGS=1 2 3
+if "%1" == "" set ARGS=1 2
 
 rem cls
 echo.
@@ -24,3 +24,4 @@ for %%i in (%ARGS%) do (
 )
 
 %DFU% -e >NUL 2>&1
+pause

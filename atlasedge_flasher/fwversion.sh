@@ -13,7 +13,7 @@ fi
 
 ARGS=$*
 if [ -z "$*" ] ; then
-   ARGS="1 2 3"
+   ARGS="1 2"
 fi
 
 # wait for DFU mode
