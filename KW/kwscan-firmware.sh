@@ -5,6 +5,6 @@ proj="firmware"
 make -C thunderdome/projects/atlaspeak_atlasedge setup
 kwinject make -C thunderdome/projects/atlaspeak_atlasedge image
 kwbuildproject --url $url/$proj -f -o ~/kw/kwtables \
-   --add-compiler-options "-I ${PWD}/thunderdome/thirdparty/gcc-arc-elf32/arc-elf32/include" \
+   --add-compiler-options "-I ${PWD}/thunderdome/external/gcc-arc-elf32/arc-elf32/include" \
    kwinject.out
 kwadmin --url $url load $proj ~/kw/kwtables/
