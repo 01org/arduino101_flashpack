@@ -58,10 +58,10 @@ def hashfile(afile, hasher, blocksize=65536):
   return hasher.hexdigest()
 
 # publish files
-def promote_files(subdir, files):
-  for fpath in files:
+def promote_files(files_dict):
+  for fpath in files_dict['files']:
     fname = os.path.basename(fpath)
-    dest_file = os.path.join(pub_dir, subdir, fname)
+    dest_file = os.path.join(pub_dir, files_dict['subdir'], fname)
     if not os.path.isfile(dest_file):
       print 'Promoting %s to %s' % (fname, dest_file)
       shutil.copy(fpath, dest_file)
@@ -92,6 +92,11 @@ if (len(corelib_files['files'])   != 1 or
     len(toolchain_files['files']) != 4):
     print "ERROR: Incorrect number of packages."
     sys.exit(1)
+
+# copy files to share
+promote_files(corelib_files)
+promote_files(tools_files)
+promote_files(toolchain_files)
 
 # form systems section of JSON
 tools_systems = get_systems(tools_files)
