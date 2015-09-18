@@ -9,6 +9,7 @@ os="$(uname)"
 DFU="bin/dfu-util"
 if [ x"$os" = x"Darwin" ]; then
   DFU="bin_osx/dfu-util"
+  export DYLD_LIBRARY_PATH=bin_osx:$DYLD_LIBRARY_PATH
 fi
 
 flash() {
