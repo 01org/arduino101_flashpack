@@ -25,7 +25,7 @@ flash() {
 wait() {
   x=''
   while [ -z $x ]; do
-    x=$($DFU -l |grep sensor)
+    x=$($DFU -l 2>/dev/null |grep sensor)
     #sleep 1
   done
 }
