@@ -11,7 +11,7 @@ echo Reset the board before proceeding...
 REM wait for DFU device
 set X=
 :loop
-  for /f "tokens=*" %%i in ('%DFU% -l ^|find "sensor"') do (
+  for /f "tokens=*" %%i in ('%DFU% -l 2>NUL ^|find "sensor"') do (
     set X="%%i"
   )
   if "!X!" EQU "" goto:loop
@@ -29,13 +29,13 @@ pause
 exit /b 0
 
 :flash
-  %DFU% -a 3 -D %IMG%/bootloader_lakemont.bin
+  %DFU% -a 7 -D %IMG%/bootloader_quark.bin
     if !ERRORLEVEL! NEQ 0 exit /b 1
-  %DFU% -a 5 -R -D %IMG%/bootupdater.bin
+  %DFU% -a 2 -R -D %IMG%/bootupdater.bin
     if !ERRORLEVEL! NEQ 0 exit /b 1
   echo *** Sleeping for 12 seconds...
   call:delay 12
-  %DFU% -a 2 -D %IMG%/lakemont.bin
+  %DFU% -a 2 -D %IMG%/quark.bin
     if !ERRORLEVEL! NEQ 0 exit /b 1
   %DFU% -a 7 -D %IMG%/arc.bin
     if !ERRORLEVEL! NEQ 0 exit /b 1
@@ -47,4 +47,3 @@ REM Ugly Windows equivalent of 'sleep'
 :delay
   choice /c:Z /d:Z /t %1 > nul
 goto:eof
-
