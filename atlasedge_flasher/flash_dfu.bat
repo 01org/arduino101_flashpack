@@ -11,7 +11,7 @@ echo Reset the board before proceeding...
 REM wait for DFU device
 set X=
 :loop
-  for /f "tokens=*" %%i in ('%DFU% -l 2>NUL ^|find "sensor"') do (
+  for /f "tokens=*" %%i in ('%DFU% -l 2^>NUL ^|find "sensor"') do (
     set X="%%i"
   )
   if "!X!" EQU "" goto:loop
