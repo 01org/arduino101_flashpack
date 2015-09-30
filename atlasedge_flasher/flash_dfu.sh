@@ -33,6 +33,7 @@ wait() {
 echo "*** Reset the board to begin..."
 wait
 flash
+exit $?
 
 if [ $? -ne 0 ]; then
   echo

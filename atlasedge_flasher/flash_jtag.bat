@@ -3,6 +3,7 @@ bin\openocd.exe -f scripts\interface\ftdi\flyswatter2.cfg -f scripts\board\fires
 if %ERRORLEVEL% NEQ 0 (
   echo.
   echo ***ERROR***
+  exit /b 1
 ) else (
   echo.
   echo !!!SUCCESS!!!
