@@ -13,8 +13,8 @@ if [ x"$os" = x"Darwin" ]; then
 fi
 
 flash() {
-  $DFU -d$PID -a 3 -D $IMG/bootloader_lakemont.bin
-  $DFU -d$PID -a 5 -R -D $IMG/bootupdater.bin
+  $DFU -d$PID -a 7 -D $IMG/bootloader_lakemont.bin
+  $DFU -d$PID -a 2 -R -D $IMG/bootupdater.bin
   echo "*** Sleeping for 12 seconds..."
   sleep 12
   $DFU -d$PID -a 2 -D $IMG/lakemont.bin
@@ -24,7 +24,7 @@ flash() {
 
 wait() {
   x=''
-  while [ -z $x ]; do
+  while [ -z "$x" ]; do
     x=$($DFU -l 2>/dev/null |grep sensor)
     #sleep 1
   done

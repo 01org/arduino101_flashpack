@@ -29,9 +29,9 @@ pause
 exit /b 0
 
 :flash
-  %DFU% -a 3 -D %IMG%/bootloader_lakemont.bin
+  %DFU% -a 7 -D %IMG%/bootloader_lakemont.bin
     if !ERRORLEVEL! NEQ 0 exit /b 1
-  %DFU% -a 5 -R -D %IMG%/bootupdater.bin
+  %DFU% -a 2 -R -D %IMG%/bootupdater.bin
     if !ERRORLEVEL! NEQ 0 exit /b 1
   echo *** Sleeping for 12 seconds...
   call:delay 12
@@ -47,4 +47,3 @@ REM Ugly Windows equivalent of 'sleep'
 :delay
   choice /c:Z /d:Z /t %1 > nul
 goto:eof
-
