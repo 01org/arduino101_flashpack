@@ -4,9 +4,9 @@ CC=~/arc32/bin/arc-elf32-gcc
 #CPPSRCS = $(wildcard *.cpp)
 #CSRCS = $(wildcard *.c)
 CPPSRCS  = $(shell find cores/arduino -name *.cpp)
-CPPSRCS := $(shell find cores/arduino -name *.cpp)
+CPPSRCS := $(shell find libraries -name *.cpp)
 CSRCS  = $(shell find cores/arduino -name *.c)
-CSRCS := $(shell find cores/arduino -name *.c)
+CSRCS := $(shell libraries -name *.c)
 CPPOBJS = $(CPPSRCS:.cpp=.o)
 COBJS = $(CSRCS:.c=.o)
 INCL = -I system/libarc32_edu/common \
