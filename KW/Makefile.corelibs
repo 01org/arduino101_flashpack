@@ -21,7 +21,9 @@ INCL = -I system/libarc32_edu/common \
 	 -I libraries/CurieBle/src \
 	 -I libraries/TFT/src \
 	 -I libraries/CurieImu/src \
-	 -I libraries/Ethernet/src
+	 -I libraries/Ethernet/src \
+	 -I libraries/Adafruit_Motor_Shield_V2_Library/utility \
+	 -I libraries/Wire
 
 #CFLAGS = $(INCL) \
 #	 -D CONFIG_SOC_GPIO_32=1 -DCLOCK_SPEED=32
