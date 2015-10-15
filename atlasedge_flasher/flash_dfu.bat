@@ -3,18 +3,30 @@
 :: Flash Arduino 101 firmware via USB and dfu-util
 
 setlocal ENABLEDELAYEDEXPANSION
-set DFU=bin\dfu-util -d8087:0ABA
+
+if "%1" NEQ "" (
+  set SER_NUM=-S %1
+)
+set DFU=bin\dfu-util %SER_NUM% -d8087:0ABA
 set IMG=images/firmware
 
 cls
+if "%SER_NUM%" NEQ "" echo Flashing board S/N: %1
 echo Reset the board before proceeding...
 REM wait for DFU device
 set X=
 :loop
-  for /f "tokens=*" %%i in ('%DFU% -l 2^>NUL ^|find "sensor"') do (
-    set X="%%i"
+  for /f "delims== tokens=8" %%i in ('%DFU% -l 2^>NUL ^|find "sensor"') do (
+    set X=%%i
   )
+  REM extract the serial number from unknown discovered device
   if "!X!" EQU "" goto:loop
+  if "%SER_NUM%" EQU "" (
+    set SER_NUM=!X:*serial=!
+	set SER_NUM=!SER_NUM:"=!
+	echo Using board S/N: !SER_NUM!...
+	set DFU=%DFU% -S !SER_NUM!
+  ) 
 
 call:flash
 
