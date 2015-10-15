@@ -13,7 +13,6 @@ if [ x"$os" = x"Darwin" ]; then
 fi
 
 flash() {
-  echo "Flashing DFU device with $ser_num"
   $DFU $ser_num -d$PID -a 7 -D $IMG/bootloader_lakemont.bin
   $DFU $ser_num -d$PID -a 2 -R -D $IMG/bootupdater.bin
   echo "*** Sleeping for 12 seconds..."
