@@ -1,6 +1,6 @@
 @echo off
 
-:: Flash AtlasEdge firmware via USB and dfu-util
+:: Flash Arduino 101 firmware via USB and dfu-util
 
 setlocal ENABLEDELAYEDEXPANSION
 set DFU=bin\dfu-util -d8087:0ABA

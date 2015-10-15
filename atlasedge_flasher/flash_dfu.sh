@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Script to flash AtlasEdge firmware via USB and dfu-util
+# Script to flash Arduino 101 firmware via USB and dfu-util
 #
 PID="8087:0ABA"
 IMG="images/firmware"
