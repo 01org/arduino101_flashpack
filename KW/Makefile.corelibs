@@ -10,11 +10,11 @@ CSRCS  = $(shell find cores/arduino -name *.c)
 CSRCS += $(shell find libraries -name *.c)
 CPPOBJS = $(CPPSRCS:.cpp=.o)
 COBJS = $(CSRCS:.c=.o)
-INCL = -I system/libarc32_edu/common \
-	 -I variants/intel_edu_x \
-	 -I system/libarc32_edu/drivers \
-	 -I system/libarc32_edu/bootcode \
-	 -I system/libarc32_edu/framework/include \
+INCL = -I system/libarc32_arduino101/common \
+	 -I variants/arduino_101 \
+	 -I system/libarc32_arduino101/drivers \
+	 -I system/libarc32_arduino101/bootcode \
+	 -I system/libarc32_arduino101/framework/include \
 	 -I cores/arduino \
 	 -I libraries/SPI \
 	 -I libraries/SD/src \
@@ -34,18 +34,18 @@ CFLAGS = -c $(INCL) -DARDUINO=100 -mARCv2EM -mav2em -mlittle-endian -g -Os -Wall
          -ffunction-sections -fdata-sections -fsigned-char -MMD -D__ARDUINO_ARC__ \
          -D__CPU_ARC__ -DCLOCK_SPEED=32 -DCONFIG_SOC_GPIO_32 -DCONFIG_SOC_GPIO_AON \
          -DINFRA_MULTI_CPU_SUPPORT -DCFW_MULTI_CPU_SUPPORT -DHAS_SHARED_MEM \
-          -I$(build.system.path)/libarc32_edu/common -I$(build.system.path)/libarc32_edu/drivers \
-          -I$(build.system.path)/libarc32_edu/bootcode -I$(build.system.path)/libarc32_edu/framework/include
+          -I$(build.system.path)/libarc32_arduino101/common -I$(build.system.path)/libarc32_arduino101/drivers \
+          -I$(build.system.path)/libarc32_arduino101/bootcode -I$(build.system.path)/libarc32_arduino101/framework/include
 
 CPPFLAGS = $(CFLAGS) \
 	 -fpermissive
 
 CHECK = splint
 
-all: main libarc32_edu
+all: main libarc32_arduino101
 
-libarc32_edu:
-	cd system/libarc32_edu/; make; cd -
+libarc32_arduino101:
+	cd system/libarc32_arduino101/; make; cd -
 
 main: $(CPPOBJS) $(COBJS)
 	@echo $(CPPOBJS)
@@ -68,4 +68,4 @@ check: $(CPPSRCS)
 clean:
 #rm -f $(CPPOBJS) $(COBJS)
 	find -name "*.o" |xargs -i rm {}
-	make -C system/libarc32_edu/ clean
+	make -C system/libarc32_arduino101/ clean
