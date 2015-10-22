@@ -7,7 +7,7 @@ setlocal ENABLEDELAYEDEXPANSION
 if "%1" NEQ "" (
   set SER_NUM=-S %1
 )
-set DFU=bin\dfu-util %SER_NUM% -d8087:0ABA
+set DFU=bin\dfu-util %SER_NUM% -d,8087:0ABA
 set IMG=images/firmware
 
 cls

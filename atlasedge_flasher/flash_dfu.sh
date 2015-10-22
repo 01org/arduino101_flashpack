@@ -6,26 +6,27 @@ PID="8087:0ABA"
 IMG="images/firmware"
 os="$(uname)"
 
-DFU="bin/dfu-util"
+BIN="bin/dfu-util"
 if [ x"$os" = x"Darwin" ]; then
-  DFU="bin_osx/dfu-util"
+  BIN="bin_osx/dfu-util"
   export DYLD_LIBRARY_PATH=bin_osx:$DYLD_LIBRARY_PATH
 fi
+DFU="$BIN $ser_num -d,$PID"
 
 flash() {
-  $DFU $ser_num -d$PID -a 7 -D $IMG/bootloader_lakemont.bin
-  $DFU $ser_num -d$PID -a 2 -R -D $IMG/bootupdater.bin
+  $DFU -a 7 -D $IMG/bootloader_lakemont.bin
+  $DFU -a 2 -R -D $IMG/bootupdater.bin
   echo "*** Sleeping for 12 seconds..."
   sleep 12
-  $DFU $ser_num -d$PID -a 2 -D $IMG/lakemont.bin
-  $DFU $ser_num -d$PID -a 7 -D $IMG/arc.bin
-  $DFU $ser_num -d$PID -a 8 -R -D $IMG/ble_core/image.bin
+  $DFU -a 2 -D $IMG/lakemont.bin
+  $DFU -a 7 -D $IMG/arc.bin
+  $DFU -a 8 -R -D $IMG/ble_core/image.bin
 }
 
 wait() {
   x=''
   while [ -z "$x" ]; do
-    x=$($DFU -l $ser_num 2>/dev/null |grep sensor)
+    x=$($DFU -l 2>/dev/null |grep sensor)
     #sleep 1
   done
   if [ -z $ser_num ]; then
