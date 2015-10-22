@@ -59,11 +59,11 @@ def read_urls():
     print "-- CORELIBS --"
     corelib_file['url'] = raw_input("Enter corelibs URL: ")
     print "-- ARDUINO-TOOLS --"
-    for os in archs:
-        tools_files['urls'][os] = raw_input("Enter %s arduino-tools URL: " % os)
+    for o in archs:
+        tools_files['urls'][o] = raw_input("Enter %s arduino-tools URL: " % o)
     print "-- ARC-TOOLCHAINS --"
-    for os in archs:
-        toolchain_files['urls'][os] = raw_input("Enter %s arc-toolchains URL: " % os)
+    for o in archs:
+        toolchain_files['urls'][o] = raw_input("Enter %s arc-toolchains URL: " % o)
     print "** VERSIONS **"
 
 proxy = urllib2.ProxyHandler({'http':  'http://proxy-chain.intel.com:911',
@@ -86,12 +86,12 @@ def dl_files():
 
     #corelib_files
     corelib_file['file'] = os.path.basename(corelib_file['url'])
-    dl_file(corelibs_url)
+    dl_file(corelib_file['url'])
     for o in archs:
-        dl_file(tools_urls[os])
+        dl_file(tools_files['urls'][o])
         tools_files['files'][o] = os.path.basename(tools_files['urls'][o])
     for o in archs:
-        dl_file(toolchains_urls[os])
+        dl_file(toolchain_files['urls'][o])
         toolchain_files['files'][o] = os.path.basename(toolchain_files['urls'][o])
 
     corelib_file['version'] = raw_input("Enter corelibs version: ")
