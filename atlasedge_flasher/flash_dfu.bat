@@ -33,6 +33,7 @@ call:flash
 if %ERRORLEVEL% NEQ 0 (
   echo.
   echo ***ERROR***
+  pause
   exit /b 1
 )
 echo.
