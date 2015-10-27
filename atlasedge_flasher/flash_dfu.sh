@@ -29,7 +29,7 @@ wait() {
     x=$($DFU -l 2>/dev/null |grep sensor)
     #sleep 1
   done
-  if [ -z $ser_num ]; then
+  if [ -z "$ser_num" ]; then
     ser_num=$(echo $x|awk -F= {'print $8'}|sed -e "s/\"//g")
   fi
 }
