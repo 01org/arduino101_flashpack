@@ -157,7 +157,7 @@ platforms.append(
         "size": os.stat(corelib_file['file']).st_size,
         "boards": [
             {
-                "name": "EDU"
+                "name": "Arduino 101"
             }
         ]
     })
