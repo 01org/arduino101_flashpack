@@ -23,7 +23,8 @@ INCL = -I system/libarc32_arduino101/common \
 	 -I libraries/CurieImu/src \
 	 -I libraries/Ethernet/src \
 	 -I libraries/Adafruit_Motor_Shield_V2_Library/utility \
-	 -I libraries/Wire
+	 -I libraries/Wire \
+         -I libraries/SoftwareSerial
 
 #CFLAGS = $(INCL) \
 #	 -D CONFIG_SOC_GPIO_32=1 -DCLOCK_SPEED=32
@@ -33,7 +34,7 @@ CFLAGS = -c $(INCL) -DARDUINO=100 -mARCv2EM -mav2em -mlittle-endian -g -Os -Wall
          -Wno-main -ffreestanding -fno-stack-protector -mno-sdata \
          -ffunction-sections -fdata-sections -fsigned-char -MMD -D__ARDUINO_ARC__ \
          -D__CPU_ARC__ -DCLOCK_SPEED=32 -DCONFIG_SOC_GPIO_32 -DCONFIG_SOC_GPIO_AON \
-         -DINFRA_MULTI_CPU_SUPPORT -DCFW_MULTI_CPU_SUPPORT -DHAS_SHARED_MEM \
+         -DINFRA_MULTI_CPU_SUPPORT -DCFW_MULTI_CPU_SUPPORT -DHAS_SHARED_MEM -DF_CPU=32000000L \
           -I$(build.system.path)/libarc32_arduino101/common -I$(build.system.path)/libarc32_arduino101/drivers \
           -I$(build.system.path)/libarc32_arduino101/bootcode -I$(build.system.path)/libarc32_arduino101/framework/include
 
