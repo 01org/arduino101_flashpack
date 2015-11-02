@@ -24,6 +24,7 @@ INCL = -I system/libarc32_arduino101/common \
 	 -I libraries/Ethernet/src \
 	 -I libraries/Adafruit_Motor_Shield_V2_Library/utility \
 	 -I libraries/Wire \
+	 -I libraries/Time \
          -I libraries/SoftwareSerial
 
 #CFLAGS = $(INCL) \
