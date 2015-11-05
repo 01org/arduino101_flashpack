@@ -33,6 +33,7 @@ do
   $DFU -d8087:0ABA -a $i -t 1 -U $file >/dev/null
   $readbin $file
 done
+rm -f $file
 
 # detatch from DFU
 $DFU -e >/dev/null 2>&1

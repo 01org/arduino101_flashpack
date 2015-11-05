@@ -22,6 +22,7 @@ for %%i in (%ARGS%) do (
   %DFU% -d8087:0ABA -a %%i -t 1 -U %file% >NUL
   %readbin% %file%
 )
+del %file% 2>NUL
 
 %DFU% -e >NUL 2>&1
 pause
