@@ -19,10 +19,10 @@ flasher=../flash-${tag}.zip
 symlink=../flashpack.zip
 
 # copy .bin and partition.conf files into flasher package
-mkdir atlasedge_flasher/images/
-rsync -avm --include='*.bin' --include='*partition.conf' -f 'hide,! */' $fwdir/ atlasedge_flasher/images/firmware/
+mkdir arduino101_flasher/images/
+rsync -avm --include='*.bin' --include='*partition.conf' -f 'hide,! */' $fwdir/ arduino101_flasher/images/firmware/
 
 # create flasher package
-mv atlasedge_flasher atlasedge_flasher_${tag}
-zip -r $flasher atlasedge_flasher_${tag}/
+mv arduino101_flasher arduino101_flasher_${tag}
+zip -r $flasher arduino101_flasher_${tag}/
 ln -s $(basename $flasher) $symlink
