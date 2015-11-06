@@ -1,10 +1,14 @@
-#!/bin/sh
+#!/bin/sh -e
 #
 # Script to flash Arduino 101 firmware via USB and dfu-util
 #
 PID="8087:0ABA"
 IMG="images/firmware"
 os="$(uname)"
+
+if [ $# -gt 0 ]; then
+  ser_num="-S $1"
+fi
 
 BIN="bin/dfu-util"
 if [ x"$os" = x"Darwin" ]; then
@@ -26,17 +30,15 @@ flash() {
 wait() {
   x=''
   while [ -z "$x" ]; do
-    x=$($DFU -l 2>/dev/null |grep sensor)
+    x=$($DFU -l 2>/dev/null |grep sensor|head -1)
     #sleep 1
   done
   if [ -z "$ser_num" ]; then
-    ser_num=$(echo $x|awk -F= {'print $8'}|sed -e "s/\"//g")
+    ser_num="-S $(echo $x|awk -F= {'print $8'}|sed -e 's/\"//g')"
+    DFU="$BIN $ser_num -d,$PID"
   fi
 }
 
-if [ $# -gt 0 ]; then
-  ser_num="-S $1"
-fi
 echo "*** Reset the board to begin..."
 wait
 echo Flashing board S/N: $ser_num
