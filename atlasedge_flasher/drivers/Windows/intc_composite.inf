@@ -1,7 +1,7 @@
 ;*********************************************************************************************
-; Windows USB Composite Setup File for Intel EDU
+; Windows USB Composite Setup File for Arduino 101
 ;
-; Copyright (c) 2014 Intel Corporation
+; Copyright (c) 2015 Intel Corporation
 ;
 ; For use only on Windows operating systems.
 ;*********************************************************************************************
@@ -10,19 +10,19 @@ Signature 			= "$WINDOWS NT$"
 Class 				= USB
 ClassGUID 			= {4D36E978-E325-11CE-BFC1-08002BE10318}
 Provider 			= %ProviderName%
-DriverVer			= 08/13/2014,1.1.0.0
+DriverVer			= 10/13/2015,1.1.0.0
 CatalogFile = intc_composite.cat
 
 [Manufacturer]
 %ProviderName% 	=	Generic,NTx86,NTamd64
 
 [Generic.NTx86]
-; Intel EDU
-%USBCompositeDevice% = Composite.Device,USB\VID_8087&PID_0AB6,USB\VID_8087&PID_0A9F ; ACM+ACM
+; Arduino 101
+%USBCompositeDevice% = Composite.Device,USB\VID_8087&PID_0AB6 ; ACM+ACM
 
 [Generic.NTamd64]
-; Intel EDU
-%USBCompositeDevice% = Composite.Device,USB\VID_8087&PID_0AB6,USB\VID_8087&PID_0A9F ; ACM+ACM
+; Arduino 101
+%USBCompositeDevice% = Composite.Device,USB\VID_8087&PID_0AB6 ; ACM+ACM
 
 [ControlFlags]
 ExcludeFromSelect=*
@@ -41,6 +41,6 @@ Needs=Composite.Dev.NT.Services
 
 [Strings]
 ProviderName 		= "Intel Corporation"
-ServiceDisplayName	= "Intel EDU USB Composite Device Driver"
-USBCompositeDevice	= "Intel EDU USB Composite Device"
-SourceDisk 			= "Intel EDU USB Composite Device Install Disk"
+ServiceDisplayName	= "Arduino 101 USB Composite Device Driver"
+USBCompositeDevice	= "Arduino 101 USB Composite Device"
+SourceDisk 		= "Arduino 101 USB Composite Device Install Disk"

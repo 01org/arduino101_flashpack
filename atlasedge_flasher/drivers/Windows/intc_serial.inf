@@ -8,7 +8,7 @@ Signature="$Windows NT$"
 Class=Ports
 ClassGuid={4D36E978-E325-11CE-BFC1-08002BE10318}
 Provider=%MFGNAME%
-DriverVer=09/16/2015,5.1.2600.0
+DriverVer=10/13/2015,5.1.2600.0
 CatalogFile = intc_serial.cat
 
 [Manufacturer]
@@ -29,10 +29,10 @@ DefaultDestDir=12
 ;------------------------------------------------------------------------------
 
 [DeviceList]
-%DESCRIPTION%=DriverInstall, USB\VID_8087&PID_0AB6, USB\VID_8087&PID_0A9F
+%DESCRIPTION%=DriverInstall, USB\VID_8087&PID_0AB6
 
 [DeviceList.NTamd64]
-%DESCRIPTION%=DriverInstall, USB\VID_8087&PID_0AB6, USB\VID_8087&PID_0A9F
+%DESCRIPTION%=DriverInstall, USB\VID_8087&PID_0AB6
 
 
 
@@ -45,8 +45,8 @@ DefaultDestDir=12
 MFGFILENAME="CDC_vista"
 DRIVERFILENAME ="usbser"
 MFGNAME="http://www.intel.com"
-INSTDISK="Intel EDU Driver Installer"
-DESCRIPTION="Intel EDU Serial Monitor"
+INSTDISK="Arduino 101 Driver Installer"
+DESCRIPTION="Arduino 101 Serial Monitor"
 SERVICE="USB RS-232 Emulation Driver"
 
 
