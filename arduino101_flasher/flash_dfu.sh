@@ -27,20 +27,29 @@ flash() {
   $DFU -a 8 -R -D $IMG/ble_core/image.bin
 }
 
-wait() {
-  x=''
-  while [ -z "$x" ]; do
-    x=$($DFU -l 2>/dev/null |grep sensor|head -1)
-    #sleep 1
+trap_to_dfu() {
+  # If trapped.bin already exists, clean up before starting the loop
+  [ -f "trapped.bin" ] && rm -f "trapped.bin"
+
+  # Loop to read from 101 so that it stays on DFU mode afterwards
+  until $DFU -a 4 -U trapped.bin > /dev/null 2>&1
+  do
+    sleep 0.1
   done
+
+  # Clean up
+  [ -f "trapped.bin" ] && rm -f "trapped.bin"
+
+  # If a serial number is not specified by the user, read it from the board
   if [ -z "$ser_num" ]; then
+    x=$($DFU -l 2>/dev/null |grep sensor|head -1)
     ser_num="-S $(echo $x|awk -F= {'print $8'}|sed -e 's/\"//g')"
     DFU="$BIN $ser_num -d,$PID"
   fi
 }
 
 echo "*** Reset the board to begin..."
-wait
+trap_to_dfu
 echo Flashing board S/N: $ser_num
 flash
 exit $?
