@@ -110,7 +110,7 @@ def modify_manifest_then_tag_and_push(repo_path, tag, execute, verbose):
 
     # Modify the manifest file to point to the current tag.
     # Replace |revision="master"|revision="refs/tags/TAG"|
-    REVISION_PATTERN = 'revision="[a-zA-Z0-9_-]+"'
+    REVISION_PATTERN = 'revision="[a-zA-Z0-9_/-]+"'
     replace(          "%s/default.xml"%repo_path, REVISION_PATTERN, 'revision="refs/tags/%s"'%tag)
     replace("%s/include/atlaspeak.xml"%repo_path, REVISION_PATTERN, 'revision="refs/tags/%s"'%tag)
     
