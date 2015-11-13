@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/sh
 #
 # Script to flash Arduino 101 firmware via USB and dfu-util
 #
