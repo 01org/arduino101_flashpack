@@ -10,6 +10,9 @@ if [ $# -gt 0 ]; then
   ser_num="-S $1"
 fi
 
+DIR="$( dirname `readlink -f $0`)"
+cd "$DIR"
+
 BIN="bin/dfu-util"
 if [ x"$os" = x"Darwin" ]; then
   BIN="bin_osx/dfu-util"
