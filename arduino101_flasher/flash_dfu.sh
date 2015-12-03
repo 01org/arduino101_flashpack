@@ -52,13 +52,14 @@ echo "*** Reset the board to begin..."
 trap_to_dfu
 echo Flashing board S/N: $ser_num
 flash
-exit $?
 
 if [ $? -ne 0 ]; then
   echo
   echo "***ERROR***"
+  exit 1
 else
   echo
   echo "!!!SUCCESS!!!"
+  exit 0
 fi
 
