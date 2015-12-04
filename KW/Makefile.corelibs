@@ -1,8 +1,8 @@
 CPP=~/arc32/bin/arc-elf32-g++
 CC=~/arc32/bin/arc-elf32-gcc
 
-#CPPSRCS = $(wildcard *.cpp)
-#CSRCS = $(wildcard *.c)
+ARDUINO_IDE=10607
+
 build.system.path = $(PWD)/system
 CPPSRCS  = $(shell find cores/arduino -name *.cpp)
 CPPSRCS += $(shell find libraries -name *.cpp)
@@ -25,11 +25,11 @@ INCL = -I system/libarc32_arduino101/common \
 	 -I libraries/Adafruit_Motor_Shield_V2_Library/utility \
 	 -I libraries/Wire \
 	 -I libraries/Time \
-         -I libraries/SoftwareSerial
+         -I libraries/CurieSoftwareSerial
 
 #CFLAGS = $(INCL) \
 #	 -D CONFIG_SOC_GPIO_32=1 -DCLOCK_SPEED=32
-CFLAGS = -c $(INCL) -DARDUINO=100 -mARCv2EM -mav2em -mlittle-endian -g -Os -Wall \
+CFLAGS = -c $(INCL) -DARDUINO=$(ARDUINO_IDE) -mARCv2EM -mav2em -mlittle-endian -g -Os -Wall \
          -fno-reorder-functions -fno-asynchronous-unwind-tables \
          -fno-omit-frame-pointer -fno-defer-pop -Wno-unused-but-set-variable \
          -Wno-main -ffreestanding -fno-stack-protector -mno-sdata \
