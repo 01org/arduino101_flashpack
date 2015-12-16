@@ -6,7 +6,7 @@ if [ -n "$1" ]; then
   proj="$1"
 fi
 if [ -n "$KW_BUILD" ]; then
-  build="--name $KWBUILD"
+  build="--name $KW_BUILD"
 fi
 #make -f Makefile.corelibs clean
 kwinject make -f Makefile.corelibs
