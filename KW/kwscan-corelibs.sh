@@ -5,7 +5,10 @@ proj="corelibs-atlasedge-master"
 if [ -n "$1" ]; then
   proj="$1"
 fi
+if [ -n "$KW_BUILD" ]; then
+  build="--name $KWBUILD"
+fi
 #make -f Makefile.corelibs clean
 kwinject make -f Makefile.corelibs
 kwbuildproject --url $url/$proj -f -o ~/kw/kwtables kwinject.out
-kwadmin --url $url load $proj ~/kw/kwtables/
+kwadmin --url $url load $build $proj ~/kw/kwtables/
