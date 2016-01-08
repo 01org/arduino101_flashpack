@@ -143,7 +143,7 @@ platforms.append(
         "size": os.stat(corelib_files['files'][0]).st_size,
         "boards": [
             {
-                "name": "Arduino 101"
+                "name": "Arduino/Genuino 101"
             }
         ]
     })
