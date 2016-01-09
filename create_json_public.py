@@ -98,7 +98,7 @@ def dl_files():
     tools_files['version'] = raw_input("Enter arduino-tools version: ")
     toolchain_files['version'] = raw_input("Enter arc-toolchains version: ")
 
-    corelib_file['name'] = "Intel Curie Boards"
+    corelib_file['name'] = "Intel Curie Boards (Test)"
     tools_files['name'] = "sketchUploader"
     toolchain_files['name']  = "arc-elf32"
 
