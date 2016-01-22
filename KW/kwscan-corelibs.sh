@@ -1,4 +1,4 @@
-#set -e
+set -e
 export PATH=$PATH:~/arc32/bin:~/kw/kw10.3.0/bin
 url='http://findlay-ubuntu.amr.corp.intel.com:8080'
 proj="corelibs-atlasedge-master"
