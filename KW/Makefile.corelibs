@@ -25,14 +25,14 @@ INCL = -I system/libarc32_arduino101/common \
 	 -I libraries/Adafruit_Motor_Shield_V2_Library/utility \
 	 -I libraries/Wire \
 	 -I libraries/Time \
-         -I libraries/CurieSoftwareSerial
+         -I libraries/CurieSoftwareSerial/src
 
 #CFLAGS = $(INCL) \
 #	 -D CONFIG_SOC_GPIO_32=1 -DCLOCK_SPEED=32
 CFLAGS = -c $(INCL) -DARDUINO=$(ARDUINO_IDE) -mARCv2EM -mav2em -mlittle-endian -g -Os -Wall \
          -fno-reorder-functions -fno-asynchronous-unwind-tables \
          -fno-omit-frame-pointer -fno-defer-pop -Wno-unused-but-set-variable \
-         -Wno-main -ffreestanding -fno-stack-protector -mno-sdata \
+         -Wno-main -ffreestanding -fno-stack-protector -mno-sdata -std=c++11 \
          -ffunction-sections -fdata-sections -fsigned-char -MMD -D__ARDUINO_ARC__ \
          -D__CPU_ARC__ -DCLOCK_SPEED=32 -DCONFIG_SOC_GPIO_32 -DCONFIG_SOC_GPIO_AON \
          -DINFRA_MULTI_CPU_SUPPORT -DCFW_MULTI_CPU_SUPPORT -DHAS_SHARED_MEM -DF_CPU=32000000L \
