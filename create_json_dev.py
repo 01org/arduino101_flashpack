@@ -84,7 +84,7 @@ def read_urls():
 
 
     corelib_file['name'] = "Intel Curie Boards (DEV)"
-    tools_files['name'] = "sketchUploader"
+    tools_files['name'] = "arduino101load"
     toolchain_files['name']  = "arc-elf32"
 
 # list files

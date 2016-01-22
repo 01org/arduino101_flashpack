@@ -84,7 +84,7 @@ def get_systems(files_dict):
 
 # list files
 corelib_files    = load_files("corelibs", "Intel Curie Boards (Test)")
-tools_files      = load_files("arduino-tools", "sketchUploader")
+tools_files      = load_files("arduino-tools", "arduino101load")
 toolchain_files  = load_files("arc-toolchains", "arc-elf32")
 # verify package file counts - nothing is missing
 if (len(corelib_files['files'])   != 1 or

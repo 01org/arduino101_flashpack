@@ -99,7 +99,7 @@ def dl_files():
     toolchain_files['version'] = raw_input("Enter arc-toolchains version: ")
 
     corelib_file['name'] = "Intel Curie Boards (Test)"
-    tools_files['name'] = "sketchUploader"
+    tools_files['name'] = "arduino101load"
     toolchain_files['name']  = "arc-elf32"
 
 # list files
