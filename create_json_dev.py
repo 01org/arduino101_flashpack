@@ -149,7 +149,7 @@ packages = \
     {
         "maintainer": "Intel",
         "name": package_name,
-        "websiteURL": "http://www.intel.com/",
+        "websiteURL": "https://www.arduino.cc/en/Main/ArduinoBoard101",
         "email": "support@intel.com",
         "platforms": platforms,
         "tools": tools
