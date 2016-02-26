@@ -21,13 +21,12 @@ fi
 DFU="$BIN $ser_num -d,$PID"
 
 flash() {
-  $DFU -a 7 -D $IMG/bootloader_lakemont.bin
+  $DFU -a 7 -D $IMG/bootloader_quark.bin
   $DFU -a 2 -R -D $IMG/bootupdater.bin
   echo "*** Sleeping for 12 seconds..."
   sleep 12
-  $DFU -a 2 -D $IMG/lakemont.bin
+  $DFU -a 2 -D $IMG/quark.bin
   $DFU -a 7 -D $IMG/arc.bin
-  $DFU -a 8 -R -D $IMG/ble_core/image.bin
 }
 
 trap_to_dfu() {
