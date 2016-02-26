@@ -26,7 +26,7 @@ flash() {
   echo "*** Sleeping for 12 seconds..."
   sleep 12
   $DFU -a 2 -D $IMG/quark.bin
-  $DFU -a 7 -D $IMG/arc.bin
+  $DFU -a 7 -D $IMG/arc.bin -R
 }
 
 trap_to_dfu() {

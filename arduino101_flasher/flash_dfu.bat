@@ -50,7 +50,7 @@ exit /b 0
   call:delay 12  
   %DFU% -a 2 -D %IMG%/quark.bin
     if !ERRORLEVEL! NEQ 0 exit /b 1
-  %DFU% -a 7 -D %IMG%/arc.bin
+  %DFU% -a 7 -D %IMG%/arc.bin -R
     if !ERRORLEVEL! NEQ 0 exit /b 1
 goto:eof
 
