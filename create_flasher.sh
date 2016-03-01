@@ -23,6 +23,6 @@ mkdir arduino101_flasher/images/
 rsync -avm --include='*.bin' --include='*partition.conf' -f 'hide,! */' $fwdir/ arduino101_flasher/images/firmware/
 
 # create flasher package
-mv arduino101_flasher arduino101_flasher_${tag}
+rsync -rav arduino101_flasher/ arduino101_flasher_${tag}
 zip -r $flasher arduino101_flasher_${tag}/
 ln -s $(basename $flasher) $symlink
