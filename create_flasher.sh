@@ -9,9 +9,11 @@ if [ ! -d $fwdir ]; then
   exit 1
 fi
 # create readable tag for flasher package
-tag=$(echo $1 |sed -e "s/\//-/g" -)
-echo $tag
-flasher=flashpack_${tag}.zip
+if [ -n "$1" ]; then 
+  tag=_$(echo $1 |sed -e "s/\//-/g" -)
+  echo $tag
+fi
+flasher=flashpack${tag}.zip
 
 # copy .bin and partition.conf files into flasher package
 rm -rf images
@@ -20,7 +22,8 @@ rsync -avm --include='*.bin' --include='*partition.conf' -f 'hide,! */' $fwdir/ 
 
 # create flasher package
 cd ..
-rsync -rav --exclude='.git' --exclude='create_flasher.sh' arduino101_flashpack/ arduino101_flasher_${tag}
+if [ -n "$tag" ]; then
+  rsync -rav --exclude='.git' --exclude='create_flasher.sh' arduino101_flashpack/ arduino101_flashpack${tag}
+fi
 rm -rf $flasher
-zip -r $flasher arduino101_flasher_${tag}/
-ln -sf $(basename $flasher) flashpack.zip
+zip -r $flasher arduino101_flashpack${tag}/ -x *.git/*
