@@ -2,7 +2,7 @@
 #
 # Script to flash Arduino 101 firmware via USB and dfu-util
 #
-PID="8087:0ABA"
+PID="8087:0aba"
 IMG="images/firmware"
 os="$(uname)"
 
@@ -10,14 +10,20 @@ if [ $# -gt 0 ]; then
   ser_num="-S $1"
 fi
 
-DIR="$( dirname `readlink -f $0`)"
-cd "$DIR"
-
-BIN="bin/dfu-util"
 if [ x"$os" = x"Darwin" ]; then
   BIN="bin_osx/dfu-util"
   export DYLD_LIBRARY_PATH=bin_osx:$DYLD_LIBRARY_PATH
+else
+  DIR="$( dirname `readlink -f $0`)"
+  cd "$DIR"
+
+  BIN="bin/dfu-util"
+  arch="$(uname -i)" 2>/dev/null
+  if [ x"$arch" = x"i386" ]; then
+    BIN="bin/dfu-util.32"
+  fi
 fi
+
 DFU="$BIN $ser_num -d,$PID"
 
 flash() {
