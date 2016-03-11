@@ -1,14 +1,11 @@
-#!/bin/sh
+#!/bin/sh 
+set -e
 #
 # Script to flash Arduino 101 firmware via USB and dfu-util
 #
 PID="8087:0aba"
 IMG="images/firmware"
 os="$(uname)"
-
-if [ $# -gt 0 ]; then
-  ser_num="-S $1"
-fi
 
 if [ x"$os" = x"Darwin" ]; then
   BIN="bin_osx/dfu-util"
@@ -24,13 +21,31 @@ else
   fi
 fi
 
-DFU="$BIN $ser_num -d,$PID"
+help() {
+  echo "Usage: $0 [options]
+          -b                Flash bootloader
+          -s serial_number  Only flash to board with specified serial number"
+  exit 1
+}
 
-flash() {
+flash_bl() {
+  echo "
+
+** Flashing Bootloader **
+
+"
   $DFU -a 7 -D $IMG/bootloader_quark.bin
   $DFU -a 2 -R -D $IMG/bootupdater.bin
   echo "*** Sleeping for 12 seconds..."
   sleep 12
+}
+
+flash() {
+  echo "
+
+** Flashing Quark **
+
+"
   $DFU -a 2 -D $IMG/quark.bin
   $DFU -a 7 -D $IMG/arc.bin -R
 }
@@ -56,9 +71,57 @@ trap_to_dfu() {
   fi
 }
 
+bl_warning() {
+  echo " 
+**********************************************
+*              *** WARNING ***               *
+* Flashing a new bootloader can potentially  *
+* brick your board.                          *
+*          PROCEED AT YOUR OWN RISK          *
+**********************************************
+
+"
+  read -p "Proceed with flashing bootloader? [y/N]" answer
+  case $answer in
+    [yY]*)
+      ;;
+    *)
+      exit 1
+    ;;
+  esac
+}
+
+FLASH_BOOTLOADER=false
+# Parse command args
+while [ $# -gt 0 ]; do
+  arg="$1"
+  case $arg in
+    -b)
+      bl_warning
+      FLASH_BOOTLOADER=true
+      ;;
+    -s)
+      ser_num=$2
+      if [ -z "$ser_num" ]; then help; fi
+      ser_num_param="-S $ser_num"
+      shift # past argument
+      ;;
+    *)
+      help # unknown option
+      ;;
+  esac
+  shift # past argument or value
+done
+
+DFU="$BIN $ser_num_param -d,$PID"
+
 echo "*** Reset the board to begin..."
 trap_to_dfu
+
 echo Flashing board S/N: $ser_num
+if $FLASH_BOOTLOADER ; then
+  flash_bl
+fi
 flash
 
 if [ $? -ne 0 ]; then
