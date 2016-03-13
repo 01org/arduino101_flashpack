@@ -73,12 +73,12 @@ trap_to_dfu() {
 
 bl_warning() {
   echo " 
-**********************************************
-*              *** WARNING ***               *
-* Flashing a new bootloader can potentially  *
-* brick your board.                          *
-*          PROCEED AT YOUR OWN RISK          *
-**********************************************
+***************************************************************************
+*                           *** WARNING ***                               *
+* Flashing a bootloader may brick your board.                             *
+* Do not flash bootloader unless you were explicitly instructed to do so. *
+*                       PROCEED AT YOUR OWN RISK                          *
+***************************************************************************
 
 "
   read -p "Proceed with flashing bootloader? [y/N]" answer
