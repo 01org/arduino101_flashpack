@@ -87,12 +87,12 @@ goto:eof
 REM Bootloader flashing warning
 :bl_warning
 echo.
-echo **********************************************
-echo *              *** WARNING ***               *
-echo * Flashing a new bootloader can potentially  *
-echo * brick your board.                          *
-echo *          PROCEED AT YOUR OWN RISK          *
-echo **********************************************
+echo ***************************************************************************
+echo *                           *** WARNING ***                               *
+echo * Flashing a bootloader may brick your board.                             *
+echo * Do not flash bootloader unless you were explicitly instructed to do so. *
+echo *                       PROCEED AT YOUR OWN RISK                          *
+echo ***************************************************************************
 echo.
 choice /M "Proceed with flashing bootloader? " /c YN
 if NOT errorlevel 1 exit 1
