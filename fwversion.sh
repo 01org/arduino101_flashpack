@@ -5,10 +5,17 @@
 file='/tmp/dfuver.txt'
 readbin='bin/readbin'
 DFU='bin/dfu-util'
-os=$(uname)
-if [ "$os" = "Darwin" ]; then
-  DFU='bin_osx/dfu-util'
-  readbin='bin_osx/readbin'
+os="$(uname)"
+
+if [ x"$os" = x"Darwin" ]; then
+  BIN="bin_osx/dfu-util"
+  readbin="bin_osx/readbin"
+  export DYLD_LIBRARY_PATH=bin_osx:$DYLD_LIBRARY_PATH
+else
+  arch="$(uname -i)" 2>/dev/null
+  if [ x"$arch" = x"i386" ]; then
+    DFU="bin/dfu-util.32"
+  fi
 fi
 
 ARGS=$*
