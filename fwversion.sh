@@ -12,9 +12,10 @@ if [ x"$os" = x"Darwin" ]; then
   readbin="bin_osx/readbin"
   export DYLD_LIBRARY_PATH=bin_osx:$DYLD_LIBRARY_PATH
 else
-  arch="$(uname -i)" 2>/dev/null
-  if [ x"$arch" = x"i386" ]; then
+  arch="$(uname -m)" 2>/dev/null
+  if [ x"$arch" = x"i686" ]; then
     DFU="bin/dfu-util.32"
+    readbin='bin/readbin.32'
   fi
 fi
 
