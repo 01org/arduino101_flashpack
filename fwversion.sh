@@ -8,7 +8,7 @@ DFU='bin/dfu-util'
 os="$(uname)"
 
 if [ x"$os" = x"Darwin" ]; then
-  BIN="bin_osx/dfu-util"
+  DFU="bin_osx/dfu-util"
   readbin="bin_osx/readbin"
   export DYLD_LIBRARY_PATH=bin_osx:$DYLD_LIBRARY_PATH
 else
