@@ -15,8 +15,8 @@ else
   cd "$DIR"
 
   BIN="bin/dfu-util"
-  arch="$(uname -i)" 2>/dev/null
-  if [ x"$arch" = x"i386" ]; then
+  arch="$(uname -m)" 2>/dev/null
+  if [ x"$arch" = x"i686" ]; then
     BIN="bin/dfu-util.32"
   fi
 fi
