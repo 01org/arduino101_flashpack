@@ -11,7 +11,7 @@ if "%1" == ""  goto:end_parse_params
 if /i "%1" == "-b" (
   set FLASH_BOOTLOADER=1
   call:bl_warning
-  if !ERRORLEVEL! NEQ 1 exit /b 1
+  if !ERRORLEVEL! NEQ 1 goto:error
 )
 if /i "%1" == "-s" (
   set SER_NUM=%2
@@ -50,12 +50,8 @@ if %FLASH_BOOTLOADER% EQU 1 (
 )
 call:flash
 
-if %ERRORLEVEL% NEQ 0 (
-  echo.
-  echo ***ERROR***
-  pause
-  exit /b 1
-)
+if %ERRORLEVEL% NEQ 0 goto:error
+
 echo.
 echo ---SUCCESS---
 pause
@@ -66,9 +62,9 @@ exit /b 0
   echo ** Flashing Bootloader **
   echo.
   %DFU% -a 7 -D %IMG%/bootloader_quark.bin
-    if !ERRORLEVEL! NEQ 0 exit /b 1
+    if !ERRORLEVEL! NEQ 0 goto:error
   %DFU% -a 2 -R -D %IMG%/bootupdater.bin
-    if !ERRORLEVEL! NEQ 0 exit /b 1
+    if !ERRORLEVEL! NEQ 0 goto:error
   echo *** Sleeping for 12 seconds...
   call:delay 12  
 goto:eof
@@ -78,9 +74,9 @@ goto:eof
   echo ** Flashing Quark **
   echo.
   %DFU% -a 2 -D %IMG%/quark.bin
-    if !ERRORLEVEL! NEQ 0 exit /b 1
+    if !ERRORLEVEL! NEQ 0 goto:exit
   %DFU% -a 7 -D %IMG%/arc.bin -R
-    if !ERRORLEVEL! NEQ 0 exit /b 1
+    if !ERRORLEVEL! NEQ 0 goto:exit
 goto:eof
 
 REM Ugly Windows equivalent of 'sleep'
@@ -107,5 +103,13 @@ REM Usage message
 echo Usage: %~nx0 [options]
 echo               -b                Flash bootloader
 echo               -s serial_number  Only flash to board with specified serial number
+exit /b 1
+goto:eof
+
+REM Return error message
+:error
+echo.
+echo ***ERROR***
+pause
 exit /b 1
 goto:eof
