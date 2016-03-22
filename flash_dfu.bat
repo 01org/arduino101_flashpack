@@ -74,9 +74,9 @@ goto:eof
   echo ** Flashing Quark **
   echo.
   %DFU% -a 2 -D %IMG%/quark.bin
-    if !ERRORLEVEL! NEQ 0 goto:exit
+    if !ERRORLEVEL! NEQ 0 goto:error
   %DFU% -a 7 -D %IMG%/arc.bin -R
-    if !ERRORLEVEL! NEQ 0 goto:exit
+    if !ERRORLEVEL! NEQ 0 goto:error
 goto:eof
 
 REM Ugly Windows equivalent of 'sleep'
